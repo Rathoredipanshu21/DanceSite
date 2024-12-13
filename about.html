@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrollTrigger - Horizontal scroll</title>
+    <style>
+
+
+
+
+     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.3;
+    font-family: 'Bebas Neue', cursive;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: #000;
+    color: #fff;
+}
+
+.wrapper {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    flex-wrap: nowrap;
+}
+
+.logo {
+    font-size: 8rem;
+    position: fixed;
+    z-index: 10;
+    top: 15%;
+    left: 2rem;
+    line-height: 0.9;
+}
+
+.line {
+    background-color: red;
+    height: 1rem;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+}
+
+section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.character::before {
+    content: '';
+    width: 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.block {
+    width: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    transform: translateX(-100%);
+}
+
+.saitama::before,
+.saitama .block {
+    background-color: #ffc107;
+}
+
+.genos::before,
+.genos .block {
+    background-color: #83cdc1;
+}
+
+.caption {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    width: 30%;
+    font-weight: 400;
+    color: #444;
+    font-family: monospace;
+    transform: translate(100%, 100%);
+}
+
+.character img {
+    position: relative;
+    z-index: 10;
+    height: 90vh;
+    width: auto;
+    transform: translateY(-100%);
+}
+
+.huge-text {
+    font-size: 15vw;
+    width: 100%;
+    text-align: center;
+    color: #f52b2b;
+    position: absolute;
+    top: 20%;
+    left: 0;
+    transform: translateY(100%);
+    font-weight: 700;
+}
+
+.nickname {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 6vw;
+    text-align: right;
+    transform: translateY(-200%);
+}
+
+.nickname span {
+    display: block;
+    font-size: 70%;
+    color: #fff;
+}
+
+.quote {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 4vw;
+    width: 30%;
+    text-align: right;
+    transform: translateY(200%);
+}
+
+.quote::before,
+.quote::after {
+    content: '';
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        font-size: 3rem;
+        top: 10%;
+        left: 1rem;
+    }
+
+    .line {
+        height: 0.5rem;
+    }
+
+    .huge-text {
+        font-size: 25vw;
+        top: 10%;
+    }
+
+    .nickname {
+        font-size: 8vw;
+    }
+
+    .quote {
+        font-size: 5vw;
+    }
+
+    .caption {
+        width: 40%;
+        left: 1rem;
+        font-size: 3vw;
+    }
+
+    .block {
+        width: 100%;
+    }
+
+    .character img {
+        height: 70vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 2rem;
+        top: 5%;
+        left: 0.5rem;
+    }
+
+    .huge-text {
+        font-size: 35vw;
+        top: 5%;
+    }
+
+    .nickname {
+        font-size: 10vw;
+    }
+
+    .quote {
+        font-size: 6vw;
+    }
+
+    .caption {
+        width: 80%;
+        left: 0.5rem;
+        font-size: 4vw;
+    }
+
+    .character img {
+        height: 60vh;
+    }
+}
+
+
+
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #000;
+  color: #fff;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.-nav-class-logo img {
+  margin-top: 10px;
+  height: 40px;
+  width: 90px;
+  margin-bottom: 10px;
+}
+
+.-nav-class-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.-nav-class-top-header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.-nav-class-icons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: auto;
+}
+
+.-nav-class-icons i {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.-nav-class-offer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.-nav-class-offer.show {
+  transform: translateY(0);
+}
+
+.-nav-class-close-offer i {
+  font-size: 20px;
+  color: white;
+  background-color: #555;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  margin: 20px auto;
+}
+
+.-nav-class-navbar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.-nav-class-navbar-container2 {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+li {
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+hr {
+  width: 100%;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: none;
+  color: wheat;
+}
+
+.-nav-class-toggle-offer {
+  display: none;
+}
+
+.-nav-class-offfer {
+  width: 100%;
+}
+
+.-nav-class-Navbar .-nav-class-top-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.-nav-class-Navbar .-nav-class-logo {
+  flex: 1;
+  text-align: center;
+}
+
+.-nav-class-navbar-container2 ul {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.-nav-class-navbar-container2 li {
+  font-size: 18px;
+  color: black;
+  text-align: center;
+  width: auto;
+  padding: 0 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 978px) {
+  .-nav-class-offer {
+      width: 100%;
+      height: 100%;
+  }
+
+  .-nav-class-toggle-offer {
+      display: flex;
+      justify-content: flex-end;
+  }
+
+  .-nav-class-icons {
+      display: none;
+  }
+
+  .-nav-class-navbar-container {
+      width: 100%;
+  }
+
+  .-nav-class-navbar-container ul {
+      width: 100%;
+  }
+
+  .-nav-class-navbar-container li {
+      padding: 20px;
+      line-height: 20px;
+      font-weight: 400;
+      height: 20px;
+  }
+
+  .-nav-class-offfer {
+      display: none;
+  }
+}
+
+@media screen and (min-width: 979px) {
+  .-nav-class-toggle-offer {
+      display: none;
+  }
+
+  .-nav-class-navbar-container2 {
+      display: flex;
+  }
+}
+
+/* Modal Styles */
+.-nav-class-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.-nav-class-modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.-nav-class-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.-nav-class-close:hover,
+.-nav-class-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+    </style>
+</head>
+
+<body>
+
+
+    <div class='-nav-class-Navbar'>
+        <div class='-nav-class-top-header'>
+          <div class='-nav-class-toggle-offer' onclick="toggleOffer()">
+            <i id="toggle-icon" class="fa-solid fa-bars"></i> <!-- Toggles between bars and times icons -->
+          </div>
+          <div class='-nav-class-logo'>
+          <a href="./index.html"> <img
+              src='//www.akirathecouture.com/cdn/shop/files/Untitled_design_10.png?v=1695132877&width=80 1x, //www.akirathecouture.com/cdn/shop/files/Untitled_design_10.png?v=1695132877&width=160 2x'
+              alt='Logo' /></a> 
+          </div>
+          <div class='-nav-class-icons'>
+            <a href="login.html">
+              <i class="fa-solid fa-user"></i>
+            </a>
+          </div>
+        </div>
+        <hr />
+        <div class='-nav-class-offfer'>
+          <div class='-nav-class-navbar-container2'>
+            <ul>
+              <li><a href="">upto 40% off</a></li>
+              <li><a href='#'>Cotton wear</a></li>
+              <li><a href='#'>Anarkali</a></li>
+              <li><a href='#'>Lahenga</a></li>
+              <li><a href='#'>Drapped Dress</a></li>
+              <li><a href='#'>Party Wear</a></li>
+              <li><a href='#'>Gown</a></li>
+              <li><a href='#'>Shop All</a></li>
+            </ul>
+          </div>
+        </div>
+      
+        <div id='offer-panel' class='-nav-class-offer'>
+          <div class='-nav-class-navbar-container'>
+            <div class='-nav-class-close-offer' onclick="toggleOffer()">
+              <i class="fa-solid fa-times"></i>
+            </div>
+            <ul>
+              <li>Sale upto 40% OFF
+                <hr />
+              </li>
+              <li>Cotton wear
+                <hr />
+              </li>
+              <li>Anarkali
+                <hr />
+              </li>
+              <li>Drapped Dress
+                <hr />
+              </li>
+              <li>Party Wear
+                <hr />
+              </li>
+              <li>Gown
+                <hr />
+              </li>
+              <li>Shop All
+                <hr />
+              </li>
+              <li><a href="login.html">. Login</a></li>
+            </ul>
+          </div>
+        </div>
+      
+        <hr />
+      </div>
+      
+
+    <div class="logo">
+        <h1>star<br />united<br />banka</h1>
+    </div>
+
+    <div class="wrapper">
+        <section class="intro">
+            <div class="line"></div>
+        </section>
+
+        <section class="saitama character">
+            <div class="block"></div>
+            <img src="./Assets/danceboy.png" alt=""><span class="huge-text">United Dance House</span>
+             
+            <div class="caption">
+            
+                Star United Banka Dance Class offers a vibrant and welcoming environment where every student feels encouraged and inspired. The studio is filled with positive energy, fostering creativity and growth for dancers of all levels. Whether you're a beginner or an experienced dancer, you'll find a supportive community that nurtures your passion for dance. With expert instructors, state-of-the-art facilities, and a warm, inclusive atmosphere, Star United Banka is the perfect place to explore your love for dance and reach new heights in your journey.
+            </div>
+            <div class="nickname"><span>Star </span>united</div>
+            <div class="quote">
+               Dance Academy
+            </div>
+        </section>
+
+        <section class="genos character">
+            <div class="block"></div>
+            <!-- <img src="./Assets/genos.png" alt=""><span class="huge-text">Dream</span> -->
+             <img src="./Assets/dancegirl.png" alt="">
+            <div class="caption">
+             At Star United Banka Dance Class, you'll find an energetic and inclusive atmosphere where every dancer is empowered to thrive. The studio is a haven of positivity, where creativity flourishes, and every student is motivated to achieve their best. From beginners to seasoned dancers, everyone is welcomed into a community that values support and growth. With top-notch instructors, modern facilities, and a friendly environment, Star United Banka is the ideal space to pursue your dance aspirations and elevate your skills to new levels.
+            </div>
+            <div class="nickname"><span>founder</span>-Brajesh raj</div>
+            <div class="quote">
+                Join us to discover your passion and elevate your dance journey
+            </div>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const sections = gsap.utils.toArray('section');
+
+            let scrollTween = gsap.to(sections, {
+                xPercent: -100 * (sections.length - 1),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.wrapper',
+                    pin: true,
+                    scrub: 0.5,
+                    snap: 1 / (sections.length - 1),
+                    start: 'top top',
+                    end: () => `+=${sections.length * window.innerWidth}`
+                }
+            })
+
+            gsap.to('.logo', {
+                fontSize: '2.5rem',
+                top: '4rem',
+                scrollTrigger: {
+                    trigger: '.logo',
+                    start: 'top top',
+                    end: 1500,
+                    scrub: 0.5,
+                }
+            })
+
+            gsap.to('.line', {
+                height: '10rem',
+                scrollTrigger: {
+                    trigger: '.line',
+                    scrub: 0.5,
+                    start: 'center center',
+                    end: 2000,
+                }
+            })
+
+            document.querySelectorAll('.character').forEach(el => {
+
+                gsap.to(el.querySelector('.caption'), {
+                    x: 0,
+                    y: 0,
+                    scrollTrigger: {
+                        containerAnimation: scrollTween,
+                        trigger: el.querySelector('.caption'),
+                        start: 'top bottom',
+                        end: '+=1000',
+                        scrub: 0.5,
+                    }
+                })
+
+                gsap.to(el.querySelector('.quote'), {
+                    y: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                        containerAnimation: scrollTween,
+                        trigger: el.querySelector('.quote'),
+                        start: 'top bottom',
+                        end: '+=20%',
+                        scrub: 0.5,
+                    }
+                })
+
+                gsap.to(el.querySelector('.nickname'), {
+                    y: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                        containerAnimation: scrollTween,
+                        trigger: el.querySelector('.nickname'),
+                        start: 'top bottom',
+                        end: '+=10%',
+                        scrub: 0.5,
+                    }
+                })
+
+                gsap.to(el.querySelector('.block'), {
+                    x: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                        containerAnimation: scrollTween,
+                        trigger: el.querySelector('.block'),
+                        start: 'top bottom',
+                        end: '+=30%',
+                        scrub: 0.5,
+                    }
+                })
+
+                gsap.to(el.querySelector('img'), {
+                    y: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                        containerAnimation: scrollTween,
+                        trigger: el.querySelector('img'),
+                        start: 'top bottom',
+                        end: '+=50%',
+                        scrub: 0.5,
+                    }
+                })
+
+                gsap.to(el.querySelector('.huge-text'), {
+                    y: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                        containerAnimation: scrollTween,
+                        trigger: el.querySelector('.huge-text'),
+                        start: 'top bottom',
+                        end: '+=20%',
+                        scrub: 0.5,
+                    }
+                })
+
+            })
+        })
+    </script>
+</body>
+
+</html>

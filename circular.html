@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.slideshow {
+  height: 100vh;
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+.carousel {
+  width: 80rem;
+  height: 80rem;
+  border: 7rem solid#eebe97;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -55%;
+  flex-shrink: 0;
+  transition: rotate 1s;
+}
+
+.slide {
+  width: 20rem;
+  position: absolute;
+}
+
+.slide:nth-child(1) {
+  bottom: -20rem;
+}
+
+.slide:nth-child(2) {
+  left: -20rem;
+}
+
+.slide:nth-child(3) {
+  top: -20rem;
+}
+
+.slide:nth-child(4) {
+  right: -20rem;
+}
+
+.slide.active img {
+  transform: scale(2.5);
+  transition: transform 0.5s 0.5s;
+}
+
+.slide img {
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+  border-radius: 20px;
+}
+
+.controls {
+  position: sticky;
+  bottom: 5rem;
+}
+
+.controls a {
+  padding: 1rem;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 10rem;
+  transition: background-color 1s;
+}
+
+.controls a.active {
+  background-color: #7dbd77;
+}
+
+.controls img {
+  width: 10rem;
+}
+@media (max-width: 480px) {
+        .carousel {
+          width: 40rem;
+          height: 40rem;
+          border-width: 3rem;
+        }
+
+        .slide {
+          width: 10rem;
+        }
+
+        .slide:nth-child(1) {
+          bottom: -10rem;
+        }
+
+        .slide:nth-child(2) {
+          left: -10rem;
+        }
+
+        .slide:nth-child(3) {
+          top: -10rem;
+        }
+
+        .slide:nth-child(4) {
+          right: -10rem;
+        }
+
+        .slide.active img {
+          transform: scale(1.5);
+        }
+
+        .controls img {
+          width: 6rem;
+        }
+        .slideshow {
+            height: 60vh;
+        }
+      }
+   </style>
+    <title>Circle Slider</title>
+  </head>
+  <body>
+    <div class="slideshow">
+      <div class="carousel">
+        <div class="slide active">
+          <!-- <img src="./Assets//food-img-1.png" /> -->
+           <img src="https://plus.unsplash.com/premium_photo-1682096578903-71faffaec40d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZGFuY2V8ZW58MHx8MHx8fDA%3D" alt="">
+        </div>
+        <div class="slide">
+          <!-- <img src="./Assets/food-img-2.png" /> -->
+           <img src="https://images.unsplash.com/photo-1504472163967-67e18fe3ca28?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGRhbmNlfGVufDB8fDB8fHww" alt="">
+        </div>
+        <div class="slide">
+          <!-- <img src="./Assets/food-img-3.png" /> -->
+           <img src="https://images.unsplash.com/photo-1448374247140-1b25b7a2d776?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fGRhbmNlfGVufDB8fDB8fHww" alt="">
+        </div>
+        <div class="slide">
+          <!-- <img src="./Assets//food-img-4.png" /> -->
+           <img src="https://images.unsplash.com/photo-1518625814514-6ea480207e8f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTF8fGRhbmNlfGVufDB8fDB8fHww" alt="">
+        </div>
+      </div>
+      <div class="controls">
+        <a href="#" data-index="1" class="active">
+          <img src="./Assets/control-img-1 (1).png" />
+        </a>
+        <a href="#" data-index="2">
+          <img src="./Assets/control-img-2.png" />
+        </a>
+        <a href="#" data-index="3">
+          <img src="./Assets/control-img-3.png" />
+        </a>
+        <a href="#" data-index="4">
+          <img src="./Assets/control-img-4.png" />
+        </a>
+      </div>
+    </div>
+  </body>
+  <script>
+    const carousel = document.querySelector(".carousel");
+const slides = document.querySelectorAll(".slide");
+const controlLinks = document.querySelectorAll(".controls a");
+
+let i = 0,
+  j = 1,
+  intervalId;
+
+const intervalFn = () => {
+  intervalId = setInterval(() => {
+    carousel.style.rotate = `-${++i * 90}deg`;
+
+    document.querySelector(".slide.active").classList.remove("active");
+    const activeSlide = document.querySelector(`.slide:nth-child(${++j})`);
+    activeSlide.classList.add("active");
+
+    document.querySelector("a.active").classList.remove("active");
+    const activeLink = document.querySelector(`.controls a:nth-child(${j})`);
+    activeLink.classList.add("active");
+
+    j === 4 && (j = 0);
+  }, 4000);
+};
+
+intervalFn();
+
+controlLinks.forEach((control) => {
+  control.addEventListener("click", () => {
+    clearInterval(intervalId);
+    carousel.style.rotate = `-${
+      (i - j + Number(control.dataset.index)) * 90
+    }deg`;
+
+    document.querySelector(".slide.active").classList.remove("active");
+    const activeSlide = document.querySelector(
+      `.slide:nth-child(${control.dataset.index})`
+    );
+    activeSlide.classList.add("active");
+
+    document.querySelector("a.active").classList.remove("active");
+    control.classList.add("active");
+  });
+});
+
+carousel.addEventListener("mouseenter", () => {
+  clearInterval(intervalId);
+  console.log("Pause");
+});
+
+carousel.addEventListener("mouseleave", () => {
+  intervalFn();
+  console.log("Play");
+});
+  </script>
+</html>

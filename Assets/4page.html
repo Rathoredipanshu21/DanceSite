@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Triggered Sections</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            position: relative;
+            height: 400vh; /* Height of the container to allow scrolling */
+        }
+
+        .section {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .section1 {
+            background-color: lightcoral;
+        }
+
+        .section2 {
+            background-color: rgb(68, 255, 0);
+            transform: translateX(-100%);
+        }
+
+        .section3 {
+            background-color: rgb(248, 5, 106);
+            transform: translateX(100%);
+        }
+
+        .section4 {
+            background-color: lightgoldenrodyellow;
+            transform: translateY(-100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section section1">Section 1</div>
+        <div class="section section2">Section 2</div>
+        <div class="section section3">Section 3</div>
+        <div class="section section4">Section 4</div>
+    </div>
+</body>
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(".section2", {
+        x: '0%',
+        scrollTrigger: {
+            trigger: ".section1",
+            start: "bottom top",
+            end: "bottom top",
+            scrub: true,
+            pin: ".section2"
+        }
+    });
+
+    gsap.to(".section3", {
+        x: '0%',
+        scrollTrigger: {
+            trigger: ".section2",
+            start: "bottom top",
+            end: "bottom top",
+            scrub: true,
+            pin: ".section3"
+        }
+    });
+
+    gsap.to(".section4", {
+        y: '0%',
+        scrollTrigger: {
+            trigger: ".section3",
+            start: "bottom top",
+            end: "bottom top",
+            scrub: true,
+            pin: ".section4"
+        }
+    });
+</script>
+</html>

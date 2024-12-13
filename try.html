@@ -1,0 +1,147 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #main {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .one {
+            width: 100%;
+            height: 100vh;
+            background-color: #333;
+        }
+
+        .two {
+            width: 100%;
+            height: 100vh;
+            background-color: #fff;
+            /* display: flex; */
+            /* align-items: center;
+            justify-content: center; */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .text-area-hover {
+            font-size: 7vw;
+            font-family: gilory;
+            text-transform: uppercase;
+            font-weight: 600;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            left: -100%;
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .text-area-hover {
+                font-size: 10vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .text-area-hover {
+                font-size: 12vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div class="one"></div>
+        <div class="two">
+            <div class="text-area-hover">
+                Star United Banka
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        const lenis = new Lenis();
+
+        lenis.on('scroll', (e) => {
+            console.log(e);
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".two",
+                start: "top 75%", // Animation starts when .two enters the viewport
+                end: "top 50%",   // Animation stops when .two is centered in the viewport
+                scrub: 1,
+                markers: true // For debugging; remove this line when done
+            }
+        });
+
+        tl.to(".text-area-hover", {
+            left: "50%",
+            xPercent: -50, // Adjust position to ensure the text is centered
+            duration: 0.5
+        });
+    </script>
+</body>
+
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->

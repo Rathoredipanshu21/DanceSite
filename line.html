@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP Circular Scroll</title>
+   <style>
+    body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 200vh; /* Ensure scrolling */
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.image {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transform-origin: center;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+.box{
+    width: 100%;
+    height: 100vh;
+    background-color: salmon;
+}
+
+   </style>
+</head>
+<body>
+        <div class="box">
+
+        </div>
+
+    <div class="image-container">
+        <div class="image" id="img1"><img src="https://plus.unsplash.com/premium_photo-1685202712997-903bafddbbc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29udGVtcG9yYXJ5JTIwZGFuY3xlbnwwfHwwfHx8MA%3D%3D" alt="Image 1"></div>
+        <div class="image" id="img2"><img src="https://plus.unsplash.com/premium_photo-1685202712997-903bafddbbc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29udGVtcG9yYXJ5JTIwZGFuY3xlbnwwfHwwfHx8MA%3D%3D" alt="Image 2"></div>
+        <div class="image" id="img3"><img src="https://plus.unsplash.com/premium_photo-1685202712997-903bafddbbc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29udGVtcG9yYXJ5JTIwZGFuY3xlbnwwfHwwfHx8MA%3D%3D" alt="Image 3"></div>
+        <div class="image" id="img4"><img src="https://plus.unsplash.com/premium_photo-1685202712997-903bafddbbc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29udGVtcG9yYXJ5JTIwZGFuY3xlbnwwfHwwfHx8MA%3D%3D" alt="Image 4"></div>
+        <div class="image" id="img5"><img src="https://plus.unsplash.com/premium_photo-1685202712997-903bafddbbc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29udGVtcG9yYXJ5JTIwZGFuY3xlbnwwfHwwfHx8MA%3D%3D" alt="Image 5"></div>
+        <div class="image" id="img6"><img src="https://plus.unsplash.com/premium_photo-1685202712997-903bafddbbc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29udGVtcG9yYXJ5JTIwZGFuY3xlbnwwfHwwfHx8MA%3D%3D" alt="Image 6"></div>
+        <div class="image" id="img7"><img src="https://plus.unsplash.com/premium_photo-1685202712997-903bafddbbc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29udGVtcG9yYXJ5JTIwZGFuY3xlbnwwfHwwfHx8MA%3D%3D" alt="Image 7"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    
+</body>
+<script>
+    // GSAP initialization
+gsap.registerPlugin(ScrollTrigger);
+
+const images = document.querySelectorAll('.image');
+
+// Place images in a circular layout
+images.forEach((image, i) => {
+    const angle = i * (360 / images.length);
+    gsap.set(image, {
+        rotation: angle,
+        xPercent: -50,
+        yPercent: -50,
+        x: Math.cos(angle * (Math.PI / 180)) * 200,
+        y: Math.sin(angle * (Math.PI / 180)) * 200,
+    });
+});
+
+// Scroll animation to rotate the images in a circular motion
+gsap.to('.image-container', {
+    rotate: 360,
+    ease: "none",
+    scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true
+    }
+});
+
+</script>
+</html>
